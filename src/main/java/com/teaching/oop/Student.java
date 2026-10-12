@@ -6,7 +6,7 @@ package com.teaching.oop;
  *
  * Fully rewritten from source repo (teaching moment / anti-pattern corrected):
  *   The original Student extended Shape, which required implementing getArea() returning 0.
- *   Student is not a geometric shape — this was a live coding mistake where the wrong
+ *   Student is not a geometric shape - this was a live coding mistake where the wrong
  *   base class was selected. Correct approach: Student is an independent class with
  *   its own relevant fields (name, age, grade).
  */

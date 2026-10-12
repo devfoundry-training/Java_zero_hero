@@ -4,7 +4,7 @@ package com.teaching.functions;
  * Demonstrates method signatures, return types, overloading, pass-by-value, and scope.
  *
  * The original Main.java (source repo) used a public static String field mutated by every
- * method — a global state anti-pattern. Methods here use local scope and parameters correctly.
+ * method - a global state anti-pattern. Methods here use local scope and parameters correctly.
  */
 public class MethodRunner {
 
@@ -58,7 +58,7 @@ public class MethodRunner {
             int y = 10;
             System.out.println("Inside block  : x=" + x + ", y=" + y);
         }
-        // y is not accessible here — its scope ended with the block.
+        // y is not accessible here - its scope ended with the block.
         System.out.println("Outside block : x=" + x);
     }
 

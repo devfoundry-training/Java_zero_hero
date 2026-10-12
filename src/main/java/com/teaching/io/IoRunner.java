@@ -14,7 +14,7 @@ import java.util.stream.Stream;
  * Demonstrates Java NIO2 file I/O: Path, Files API, BufferedReader/Writer,
  * and the EAFP vs LBYL debate in an IO context.
  *
- * All demos use temp files so no external setup is required — run as-is.
+ * All demos use temp files so no external setup is required - run as-is.
  *
  * EAFP/LBYL content moved here from ExceptionDemo (source repo):
  * it belongs in IO because the debate is specifically about how to handle
@@ -30,7 +30,7 @@ public class IoRunner {
     }
 
     // -------------------------------------------------------------------------
-    // 1. Path — represent and inspect file system locations without touching disk
+    // 1. Path - represent and inspect file system locations without touching disk
     // -------------------------------------------------------------------------
 
     static void pathDemo() {
@@ -43,7 +43,7 @@ public class IoRunner {
         System.out.println("getParent()   : " + relative.getParent());    // data/reports
         System.out.println("toAbsolute()  : " + relative.toAbsolutePath());
 
-        // resolve() appends a child path to a base — OS-separator-safe
+        // resolve() appends a child path to a base - OS-separator-safe
         Path base     = Path.of("data");
         Path resolved = base.resolve("reports").resolve("output.txt");
         System.out.println("resolved      : " + resolved);
@@ -56,7 +56,7 @@ public class IoRunner {
     }
 
     // -------------------------------------------------------------------------
-    // 2. Files.writeString / readString (Java 11+) — simplest read/write API
+    // 2. Files.writeString / readString (Java 11+) - simplest read/write API
     // -------------------------------------------------------------------------
 
     static void writeAndReadDemo() {
@@ -67,7 +67,7 @@ public class IoRunner {
 
             String content = "Hello from NIO2\nSecond line\nThird line";
 
-            // One call: opens, writes, closes — no try-with-resources needed here
+            // One call: opens, writes, closes - no try-with-resources needed here
             Files.writeString(file, content);
             System.out.println("Written: " + file.getFileName());
 
@@ -75,11 +75,11 @@ public class IoRunner {
             String read = Files.readString(file);
             System.out.println("readString:\n" + read);
 
-            // readAllLines: entire file as List<String> — all lines in memory at once
+            // readAllLines: entire file as List<String> - all lines in memory at once
             List<String> lines = Files.readAllLines(file);
             System.out.println("Line count: " + lines.size());
 
-            // Files.lines: lazy Stream — one line at a time; MUST be closed
+            // Files.lines: lazy Stream - one line at a time; MUST be closed
             System.out.println("Stream filter (non-blank lines):");
             try (Stream<String> stream = Files.lines(file)) {
                 stream.filter(l -> !l.isBlank())
@@ -97,7 +97,7 @@ public class IoRunner {
     }
 
     // -------------------------------------------------------------------------
-    // 3. BufferedReader / BufferedWriter — explicit buffered I/O
+    // 3. BufferedReader / BufferedWriter - explicit buffered I/O
     //    Use when you need line-by-line control or are writing many small chunks.
     // -------------------------------------------------------------------------
 
@@ -152,8 +152,8 @@ public class IoRunner {
             present = Files.createTempFile("teaching-eafp-", ".txt");
             Files.writeString(present, "readable content");
 
-            lbylRead(missing);   // file absent — takes the else branch
-            lbylRead(present);   // file present — reads successfully
+            lbylRead(missing);   // file absent - takes the else branch
+            lbylRead(present);   // file present - reads successfully
 
             eafpRead(missing);   // catches NoSuchFileException
             eafpRead(present);   // reads successfully
@@ -176,7 +176,7 @@ public class IoRunner {
                 System.out.println("  failed after exists() check: " + e.getMessage());
             }
         } else {
-            System.out.println("  file does not exist — skipping");
+            System.out.println("  file does not exist - skipping");
         }
     }
 
@@ -186,7 +186,7 @@ public class IoRunner {
             System.out.println("  content: " + Files.readString(path));
 
         } catch (NoSuchFileException e) {
-            // Specific subtype of IOException — lets you differentiate "not found"
+            // Specific subtype of IOException - lets you differentiate "not found"
             // from other IO failures (permissions, disk errors, etc.)
             System.out.println("  not found: " + e.getFile());
 
@@ -196,7 +196,7 @@ public class IoRunner {
         } catch (IOException e) {
             System.out.println("  IO error: " + e.getMessage());
         }
-        // No precondition check — no race condition. Idiomatic Java.
+        // No precondition check - no race condition. Idiomatic Java.
     }
 
     // -------------------------------------------------------------------------

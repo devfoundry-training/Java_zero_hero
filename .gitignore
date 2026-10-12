@@ -38,3 +38,8 @@ Desktop.ini
 # VS Code (if ever used)
 # ===========================
 .vscode/
+
+# ===========================
+# Practical tasks: files written by tasks 08 and 10
+# ===========================
+out/

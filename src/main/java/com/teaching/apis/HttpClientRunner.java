@@ -11,22 +11,22 @@ import java.time.Duration;
  * Demonstrates the Java 11+ HttpClient API: synchronous GET, response inspection,
  * and minimal JSON field extraction without an external library.
  *
- * Requires internet access. Uses JSONPlaceholder — a free, stable REST testing API.
+ * Requires internet access. Uses JSONPlaceholder - a free, stable REST testing API.
  *
  * HOW TO RUN:
  *   mvn exec:java -Dexec.mainClass="com.teaching.apis.HttpClientRunner"
  *
  * Key concepts:
- *   HttpClient  — immutable, thread-safe; build once, reuse for many requests
- *   HttpRequest — immutable value object describing a single request
- *   HttpResponse.BodyHandlers — strategy for reading the response body (String, byte[], File...)
+ *   HttpClient - immutable, thread-safe; build once, reuse for many requests
+ *   HttpRequest - immutable value object describing a single request
+ *   HttpResponse.BodyHandlers - strategy for reading the response body (String, byte[], File...)
  */
 public class HttpClientRunner {
 
     private static final String BASE = "https://jsonplaceholder.typicode.com";
 
     public static void main(String[] args) {
-        // HttpClient is immutable and thread-safe — share one instance across all requests
+        // HttpClient is immutable and thread-safe - share one instance across all requests
         HttpClient client = HttpClient.newBuilder()
             .connectTimeout(Duration.ofSeconds(5))
             .build();
@@ -51,14 +51,14 @@ public class HttpClientRunner {
 
         try {
             // send() blocks until the full response is received
-            // sendAsync() returns CompletableFuture<HttpResponse> — covered in concurrency module
+            // sendAsync() returns CompletableFuture<HttpResponse> - covered in concurrency module
             HttpResponse<String> response =
                 client.send(request, HttpResponse.BodyHandlers.ofString());
 
             System.out.println("Status : " + response.statusCode());
             System.out.println("Body   : " + response.body());
 
-            // Manual extraction — no JSON library.
+            // Manual extraction - no JSON library.
             // extractField() below is intentionally simple and fragile:
             // it only handles flat JSON objects with no nesting or arrays.
             // In production: use Jackson (ObjectMapper) or Gson.
@@ -72,7 +72,7 @@ public class HttpClientRunner {
         } catch (IOException e) {
             System.out.println("Network error (are you online?): " + e.getMessage());
         } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();  // restore interrupted status — never swallow this
+            Thread.currentThread().interrupt();  // restore interrupted status - never swallow this
         }
     }
 
@@ -113,7 +113,7 @@ public class HttpClientRunner {
 
     // -------------------------------------------------------------------------
     // 3. Reusing the same HttpClient for multiple requests
-    //    One client — many requests. This is the intended usage pattern.
+    //    One client - many requests. This is the intended usage pattern.
     // -------------------------------------------------------------------------
 
     static void multipleRequestsDemo(HttpClient client) {
@@ -130,7 +130,7 @@ public class HttpClientRunner {
                 String title = extractField(res.body(), "title");
                 System.out.printf("  todo %d : %s%n", id, title);
             } catch (IOException e) {
-                System.out.println("  todo " + id + " : error — " + e.getMessage());
+                System.out.println("  todo " + id + " : error - " + e.getMessage());
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
                 return;

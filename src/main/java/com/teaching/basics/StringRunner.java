@@ -4,7 +4,7 @@ package com.teaching.basics;
  * Demonstrates core String API and StringBuilder.
  *
  * Key rule: String is immutable. Every method that appears to "modify" a String
- * returns a NEW String — the original is unchanged. Ignoring the return value
+ * returns a NEW String - the original is unchanged. Ignoring the return value
  * is a silent bug.
  */
 public class StringRunner {
@@ -23,8 +23,8 @@ public class StringRunner {
         // == compares references (memory addresses), not content.
         String a = new String("test");
         String b = new String("test");
-        System.out.println("a == b      : " + (a == b));       // false — different objects
-        System.out.println("a.equals(b) : " + a.equals(b));    // true  — same content
+        System.out.println("a == b      : " + (a == b));       // false - different objects
+        System.out.println("a.equals(b) : " + a.equals(b));    // true - same content
 
         // Null-safe pattern: place the known non-null literal on the left.
         // "test".equals(null) returns false; null.equals(...) throws NullPointerException.
@@ -36,7 +36,7 @@ public class StringRunner {
         System.out.println("\n=== Immutability ===");
         String word = "Programming";
 
-        word.toUpperCase();                             // return value discarded — word is unchanged!
+        word.toUpperCase();                             // return value discarded - word is unchanged!
         System.out.println("Original          : " + word);
         System.out.println("toUpperCase()     : " + word.toUpperCase());  // new String returned
         System.out.println("Original (still)  : " + word);               // unchanged
@@ -59,10 +59,10 @@ public class StringRunner {
         System.out.println("\n=== StringBuilder ===");
 
         // String concatenation inside a loop creates many intermediate String objects.
-        // StringBuilder is mutable — use it when building strings iteratively.
+        // StringBuilder is mutable - use it when building strings iteratively.
         StringBuilder sb = new StringBuilder();
         for (int i = 1; i <= 5; i++) {
-            sb.append(i).append(" ");   // chained calls — each returns the same StringBuilder
+            sb.append(i).append(" ");   // chained calls - each returns the same StringBuilder
         }
         System.out.println("Built   : " + sb);
 

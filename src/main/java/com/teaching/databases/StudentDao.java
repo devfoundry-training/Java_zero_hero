@@ -7,9 +7,9 @@ import java.util.List;
  * DAO (Data Access Object) interface for the 'students' table.
  *
  * Why an interface?
- *   — Decouples the caller from the JDBC implementation.
- *   — In tests you can swap in an in-memory List-backed fake without any SQL.
- *   — In production you could swap the H2 impl for a MySQL, PostgreSQL, or
+ * - Decouples the caller from the JDBC implementation.
+ * - In tests you can swap in an in-memory List-backed fake without any SQL.
+ * - In production you could swap the H2 impl for a MySQL, PostgreSQL, or
  *     JPA-backed impl with zero changes to the callers.
  *
  * All methods declare throws SQLException because JDBC is a checked-exception API.

@@ -1,15 +1,15 @@
 package com.teaching.testing;
 
 /**
- * A simple calculator — the subject under test for the testing domain.
+ * A simple calculator - the subject under test for the testing domain.
  *
  * Deliberately kept small: the point is to demonstrate JUnit 5 patterns,
  * not to implement a full-featured calculator.
  *
  * Three interesting cases for testing:
- *   — Happy paths (normal inputs)
- *   — Edge cases (zero, negative, boundary values)
- *   — Exception paths (divide by zero, negative factorial)
+ * - Happy paths (normal inputs)
+ * - Edge cases (zero, negative, boundary values)
+ * - Exception paths (divide by zero, negative factorial)
  */
 public class Calculator {
 

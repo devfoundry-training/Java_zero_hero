@@ -2,7 +2,7 @@ package com.teaching.basics;
 
 /**
  * Demonstrates array declaration, initialisation, indexing, and traversal.
- * Arrays have a fixed length set at creation — use a List when the size must grow.
+ * Arrays have a fixed length set at creation - use a List when the size must grow.
  */
 public class ArrayRunner {
 

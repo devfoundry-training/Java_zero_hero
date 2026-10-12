@@ -11,7 +11,7 @@ import java.util.Scanner;
  *      calls to read an empty string. Fixed by using Integer.parseInt(scanner.nextLine()).
  *   2. Typo "Distiction" corrected to "Distinction".
  *   3. Scanner now closed in a finally block to guarantee closure on any code path.
- *   4. Grade logic extracted to a named method (toGrade) — easier to test and read.
+ *   4. Grade logic extracted to a named method (toGrade) - easier to test and read.
  */
 public class GradingRunner {
 
@@ -19,7 +19,7 @@ public class GradingRunner {
         Scanner scanner = new Scanner(System.in);
         try {
             System.out.println("=== Grading Application ===");
-            System.out.print("Enter your score (1–100): ");
+            System.out.print("Enter your score (1-100): ");
             int score = Integer.parseInt(scanner.nextLine());
 
             if (score < 1 || score > 100) {

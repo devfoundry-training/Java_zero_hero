@@ -1,7 +1,7 @@
 package com.teaching.basics;
 
 /**
- * Enum with associated data — each constant carries an integer code.
+ * Enum with associated data - each constant carries an integer code.
  * Used by EnumRunner to demonstrate switch expressions and reference semantics.
  */
 public enum Status {

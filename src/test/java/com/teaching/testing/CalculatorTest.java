@@ -17,19 +17,19 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  *
  * Key annotations demonstrated:
  *
- *   @Test             — marks a method as a test case
- *   @DisplayName      — human-readable label shown in test reports and IDE
- *   @BeforeEach       — runs before every @Test method; used to reset shared state
- *   @AfterEach        — runs after every @Test method; used for cleanup / logging
- *   @ParameterizedTest — runs the same test logic with multiple inputs
- *   @ValueSource      — supplies a single series of values to a parameterised test
- *   @CsvSource        — supplies rows of comma-separated values (multiple params)
+ *   @Test - marks a method as a test case
+ *   @DisplayName - human-readable label shown in test reports and IDE
+ *   @BeforeEach - runs before every @Test method; used to reset shared state
+ *   @AfterEach - runs after every @Test method; used for cleanup / logging
+ *   @ParameterizedTest - runs the same test logic with multiple inputs
+ *   @ValueSource - supplies a single series of values to a parameterised test
+ *   @CsvSource - supplies rows of comma-separated values (multiple params)
  *
  * Key assertion methods (from org.junit.jupiter.api.Assertions):
  *
- *   assertEquals(expected, actual)       — fails if values differ
- *   assertTrue(condition)                — fails if condition is false
- *   assertThrows(ExceptionType, lambda)  — fails if the lambda does NOT throw the expected type;
+ *   assertEquals(expected, actual) - fails if values differ
+ *   assertTrue(condition) - fails if condition is false
+ *   assertThrows(ExceptionType, lambda) - fails if the lambda does NOT throw the expected type;
  *                                          returns the thrown exception for further inspection
  *
  * Naming convention: methodUnderTest_Scenario_ExpectedBehaviour
@@ -55,7 +55,7 @@ class CalculatorTest {
     /**
      * Runs after EVERY @Test method.
      * Useful for releasing resources (files, connections, mocks).
-     * Printing here shows the lifecycle — remove in real projects.
+     * Printing here shows the lifecycle - remove in real projects.
      */
     @AfterEach
     void tearDown() {
@@ -80,7 +80,7 @@ class CalculatorTest {
     }
 
     @Test
-    @DisplayName("add: identity — adding zero returns the same number")
+    @DisplayName("add: identity - adding zero returns the same number")
     void add_Zero_ReturnsUnchangedValue() {
         assertEquals(42, calc.add(42, 0));
     }
@@ -136,13 +136,13 @@ class CalculatorTest {
     }
 
     /**
-     * @ValueSource supplies a single array of values — each value is passed as the
+     * @ValueSource supplies a single array of values - each value is passed as the
      * sole argument to the test method. Useful when the expected result is the same
-     * for all inputs (here: any number × 1 = itself).
+     * for all inputs (here: any number x 1 = itself).
      */
     @ParameterizedTest(name = "multiply({0}, 1) = {0}")
     @ValueSource(ints = {-100, -1, 0, 1, 42, 1_000_000})
-    @DisplayName("multiply: identity — n × 1 = n")
+    @DisplayName("multiply: identity - n x 1 = n")
     void multiply_ByOne_ReturnsSameNumber(int n) {
         assertEquals(n, calc.multiply(n, 1));
     }

@@ -13,9 +13,9 @@ import java.util.concurrent.TimeUnit;
  * Demonstrates the Executor framework: thread pools, Callable, Future, and shutdown.
  *
  * Why Executors instead of raw Threads?
- *   — Thread creation is expensive. Pools reuse threads across tasks.
- *   — Decouples task submission from threading policy.
- *   — Provides task queuing, result retrieval (Future), and lifecycle management.
+ * - Thread creation is expensive. Pools reuse threads across tasks.
+ * - Decouples task submission from threading policy.
+ * - Provides task queuing, result retrieval (Future), and lifecycle management.
  *
  * Run:
  *   mvn exec:java -Dexec.mainClass="com.teaching.concurrency.ExecutorRunner"
@@ -29,18 +29,18 @@ public class ExecutorRunner {
     }
 
     // -------------------------------------------------------------------------
-    // 1. Fixed thread pool — bounded concurrency
+    // 1. Fixed thread pool - bounded concurrency
     // -------------------------------------------------------------------------
 
     static void fixedPoolDemo() throws InterruptedException {
         System.out.println("=== Fixed Thread Pool (3 threads, 6 tasks) ===");
 
-        // Exactly 3 threads. Tasks 4–6 queue until a thread becomes available.
+        // Exactly 3 threads. Tasks 4-6 queue until a thread becomes available.
         ExecutorService pool = Executors.newFixedThreadPool(3);
 
         for (int i = 1; i <= 6; i++) {
             final int id = i;
-            pool.execute(() -> {   // execute(): submit a Runnable — fire and forget
+            pool.execute(() -> {   // execute(): submit a Runnable - fire and forget
                 System.out.printf("  task %d started  on %s%n", id, Thread.currentThread().getName());
                 try {
                     Thread.sleep(80);
@@ -52,14 +52,14 @@ public class ExecutorRunner {
         }
 
         // shutdown(): reject new submissions, but let queued and running tasks complete.
-        // shutdownNow(): interrupt running tasks and return the pending queue — use with care.
+        // shutdownNow(): interrupt running tasks and return the pending queue - use with care.
         pool.shutdown();
         boolean clean = pool.awaitTermination(5, TimeUnit.SECONDS);
         System.out.println("Pool terminated cleanly: " + clean);
     }
 
     // -------------------------------------------------------------------------
-    // 2. Callable + Future — getting a return value from a thread
+    // 2. Callable + Future - getting a return value from a thread
     //    Callable<T> is like Runnable but returns T and can throw checked exceptions.
     //    Future<T> is the handle to a result that isn't ready yet.
     // -------------------------------------------------------------------------
@@ -69,7 +69,7 @@ public class ExecutorRunner {
 
         ExecutorService exec = Executors.newSingleThreadExecutor();
 
-        // submit() returns immediately with a Future — the task runs in the background
+        // submit() returns immediately with a Future - the task runs in the background
         Future<Integer> future = exec.submit(() -> {
             System.out.println("  computing on: " + Thread.currentThread().getName());
             Thread.sleep(150);
@@ -88,7 +88,7 @@ public class ExecutorRunner {
     }
 
     // -------------------------------------------------------------------------
-    // 3. invokeAll — submit a batch of Callables; wait for all to complete
+    // 3. invokeAll - submit a batch of Callables; wait for all to complete
     // -------------------------------------------------------------------------
 
     static void invokeAllDemo() throws InterruptedException, ExecutionException {
@@ -110,7 +110,7 @@ public class ExecutorRunner {
 
         System.out.println("All tasks finished:");
         for (Future<String> f : futures) {
-            System.out.println("  " + f.get());   // get() doesn't block — all are done
+            System.out.println("  " + f.get());   // get() doesn't block - all are done
         }
 
         exec.shutdown();

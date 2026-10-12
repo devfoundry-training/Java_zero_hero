@@ -8,19 +8,19 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 /**
- * Minimal TCP echo server — accepts one client, echoes every line back, then shuts down.
+ * Minimal TCP echo server - accepts one client, echoes every line back, then shuts down.
  *
  * HOW TO RUN (requires two terminals):
  *   Terminal 1: mvn exec:java -Dexec.mainClass="com.teaching.apis.SocketServerRunner"
  *   Terminal 2: mvn exec:java -Dexec.mainClass="com.teaching.apis.SocketClientRunner"
  *
  * For a self-contained single-JVM demo (server on a background thread), see the
- * concurrency module — that pattern is shown in ThreadRunner after Executors are introduced.
+ * concurrency module - that pattern is shown in ThreadRunner after Executors are introduced.
  *
  * Key concepts:
- *   ServerSocket — binds to a port; holds a backlog queue of incoming connections
- *   accept()     — blocks the calling thread until a client connects; returns a Socket
- *   Socket       — bidirectional channel; has an InputStream (reads) and OutputStream (writes)
+ *   ServerSocket - binds to a port; holds a backlog queue of incoming connections
+ *   accept() - blocks the calling thread until a client connects; returns a Socket
+ *   Socket - bidirectional channel; has an InputStream (reads) and OutputStream (writes)
  */
 public class SocketServerRunner {
 
@@ -34,12 +34,12 @@ public class SocketServerRunner {
         // OS releases the port binding on close.
         try (ServerSocket serverSocket = new ServerSocket(PORT)) {
 
-            // accept() BLOCKS here — the thread sleeps until a client connects
+            // accept() BLOCKS here - the thread sleeps until a client connects
             try (Socket            client = serverSocket.accept();
                  BufferedReader    in     = new BufferedReader(
                                                new InputStreamReader(client.getInputStream()));
                  PrintWriter       out    = new PrintWriter(client.getOutputStream(), true)) {
-                // PrintWriter(stream, true) — autoFlush=true: each println() flushes immediately.
+                // PrintWriter(stream, true) - autoFlush=true: each println() flushes immediately.
                 // Without autoFlush, the client would block forever waiting for data.
 
                 System.out.println("Client connected : " + client.getRemoteSocketAddress());
@@ -51,7 +51,7 @@ public class SocketServerRunner {
                     out.println("echo> " + line);
 
                     if ("quit".equalsIgnoreCase(line)) {
-                        System.out.println("  quit received — closing");
+                        System.out.println("  quit received - closing");
                         break;
                     }
                 }

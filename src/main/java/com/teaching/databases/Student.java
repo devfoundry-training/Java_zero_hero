@@ -3,13 +3,13 @@ package com.teaching.databases;
 /**
  * Plain data carrier for a 'students' table row.
  *
- * This is a databases-domain POJO — distinct from oop.Student.
+ * This is a databases-domain POJO - distinct from oop.Student.
  * The key difference: this class has an 'id' field that maps to the
  * database primary key. id == 0 means "not yet persisted".
  *
  * Design note: keeping the model free of JDBC imports (no ResultSet here)
  * lets the same class be reused in a web layer, test layer, etc.
- * The DAO (StudentDaoImpl) owns the mapping from ResultSet → Student.
+ * The DAO (StudentDaoImpl) owns the mapping from ResultSet -> Student.
  */
 public class Student {
 

@@ -6,7 +6,7 @@ package com.teaching.oop;
  *
  * Fix applied from source repo:
  *   The original only had Vehicle(int noOfWheels). Car() called super() which
- *   resolved to the no-arg constructor — which did not exist — causing a compile error.
+ *   resolved to the no-arg constructor - which did not exist - causing a compile error.
  *   Fixed by adding a no-arg constructor that delegates to the parameterised one.
  */
 public class Vehicle {

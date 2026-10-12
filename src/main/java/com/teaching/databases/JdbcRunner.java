@@ -10,17 +10,17 @@ import java.util.List;
  * Demonstrates JDBC fundamentals using H2 in-memory: schema init, full CRUD
  * via a DAO, SQL injection awareness, and manual transaction control.
  *
- * No external database required — H2 is embedded and starts automatically.
+ * No external database required - H2 is embedded and starts automatically.
  *
  * Run:
  *   mvn exec:java -Dexec.mainClass="com.teaching.databases.JdbcRunner"
  *
  * Key concepts:
- *   DriverManager    — obtains connections from the JDBC driver (H2 here)
- *   PreparedStatement — parameterised SQL; prevents injection; re-usable
- *   ResultSet        — cursor over query results; advance with rs.next()
- *   DAO pattern      — isolates SQL from business logic; swappable behind interface
- *   Transaction      — group of operations that succeed or fail together
+ *   DriverManager - obtains connections from the JDBC driver (H2 here)
+ *   PreparedStatement - parameterised SQL; prevents injection; re-usable
+ *   ResultSet - cursor over query results; advance with rs.next()
+ *   DAO pattern - isolates SQL from business logic; swappable behind interface
+ *   Transaction - group of operations that succeed or fail together
  *                       controlled with setAutoCommit / commit / rollback
  */
 public class JdbcRunner {
@@ -29,7 +29,7 @@ public class JdbcRunner {
         // Step 1: create the 'students' table (CREATE TABLE IF NOT EXISTS).
         // Must run before any DAO calls. Safe to call multiple times.
         DbConnection.initSchema();
-        System.out.println("Schema initialised — H2 in-memory database ready.\n");
+        System.out.println("Schema initialised - H2 in-memory database ready.\n");
 
         crudDemo();
         sqlInjectionNote();
@@ -65,7 +65,7 @@ public class JdbcRunner {
 
         // --- UPDATE ---
         // Mutate the Java object, then persist the change
-        System.out.println("\n-- UPDATE (bob: grade B → A) --");
+        System.out.println("\n-- UPDATE (bob: grade B -> A) --");
         bob.setGrade("A");
         dao.update(bob);
         System.out.println("  " + dao.findById(bob.getId()));
@@ -78,12 +78,12 @@ public class JdbcRunner {
     }
 
     // -------------------------------------------------------------------------
-    // 2. SQL injection — why PreparedStatement matters
-    //    (Educational — the unsafe SQL string is NEVER executed)
+    // 2. SQL injection - why PreparedStatement matters
+    //    (Educational - the unsafe SQL string is NEVER executed)
     // -------------------------------------------------------------------------
 
     static void sqlInjectionNote() {
-        System.out.println("\n=== SQL Injection — PreparedStatement vs String Concatenation ===");
+        System.out.println("\n=== SQL Injection - PreparedStatement vs String Concatenation ===");
 
         String maliciousInput = "' OR '1'='1";
 
@@ -91,12 +91,12 @@ public class JdbcRunner {
         // String concatenation puts raw user input directly into the SQL.
         String unsafeSql = "SELECT * FROM students WHERE name = '" + maliciousInput + "'";
         System.out.println("  Unsafe SQL  : " + unsafeSql);
-        System.out.println("  ^ '1'='1' is always true → returns ALL rows regardless of name.");
+        System.out.println("  ^ '1'='1' is always true -> returns ALL rows regardless of name.");
         System.out.println("  ^ Attacker variant: '; DROP TABLE students; --");
         System.out.println("    Would delete the entire table in one HTTP request.");
 
         // PreparedStatement with positional parameters is the fix.
-        // The JDBC driver escapes the value — it cannot break the SQL structure.
+        // The JDBC driver escapes the value - it cannot break the SQL structure.
         System.out.println("\n  Safe SQL    : SELECT * FROM students WHERE name = ?");
         System.out.println("                ps.setString(1, userInput)");
         System.out.println("  ^ Input is treated as a literal string value, never as SQL.");
@@ -104,7 +104,7 @@ public class JdbcRunner {
     }
 
     // -------------------------------------------------------------------------
-    // 3. Transactions — commit and rollback
+    // 3. Transactions - commit and rollback
     //
     //    By default JDBC operates in auto-commit mode:
     //    every executeUpdate() is immediately committed.
@@ -120,7 +120,7 @@ public class JdbcRunner {
         System.out.println("\n-- Rollback path --");
         try (Connection conn = DbConnection.getConnection()) {
             conn.setAutoCommit(false);   // begin explicit transaction
-            System.out.println("  auto-commit OFF — transaction started");
+            System.out.println("  auto-commit OFF - transaction started");
 
             try (PreparedStatement ps = conn.prepareStatement(
                     "INSERT INTO students (name, age, grade) VALUES (?, ?, ?)")) {
@@ -128,12 +128,12 @@ public class JdbcRunner {
                 ps.setInt   (2, 19);
                 ps.setString(3, "C");
                 ps.executeUpdate();
-                System.out.println("  Dave inserted (uncommitted — not yet visible outside this connection)");
+                System.out.println("  Dave inserted (uncommitted - not yet visible outside this connection)");
             }
 
-            // Something went wrong — undo everything since setAutoCommit(false)
+            // Something went wrong - undo everything since setAutoCommit(false)
             conn.rollback();
-            System.out.println("  rollback() called — Dave's insert is undone");
+            System.out.println("  rollback() called - Dave's insert is undone");
         }
         // Verify: Dave must NOT appear
         System.out.print("  Students after rollback: ");
@@ -151,7 +151,7 @@ public class JdbcRunner {
                 ps.setString(1, "Dave"); ps.setInt(2, 19); ps.setString(3, "C");
                 ps.executeUpdate();
 
-                // Insert Eve — reuse the same PreparedStatement with new params
+                // Insert Eve - reuse the same PreparedStatement with new params
                 ps.setString(1, "Eve"); ps.setInt(2, 23); ps.setString(3, "B");
                 ps.executeUpdate();
 
@@ -159,7 +159,7 @@ public class JdbcRunner {
             }
 
             conn.commit();   // both inserts land atomically
-            System.out.println("  commit() called — both rows persisted");
+            System.out.println("  commit() called - both rows persisted");
         }
         System.out.print("  Students after commit:   ");
         dao.findAll().stream()

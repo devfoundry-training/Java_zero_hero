@@ -4,7 +4,7 @@ package com.teaching.control_flow;
  * Demonstrates traditional switch statements and modern switch expressions (Java 14+).
  *
  * Original ConditionsExtended.java was an instance method that opened a Scanner
- * internally and never closed it — a resource leak. It also interleaved Scanner
+ * internally and never closed it - a resource leak. It also interleaved Scanner
  * input with switch logic, obscuring the switch teaching point.
  * Fixed by: converting to static methods that accept parameters, removing Scanner.
  */
@@ -39,7 +39,7 @@ public class SwitchRunner {
                 name = "Wednesday";
                 break;
             default:
-                name = "Unknown — enter 1 to 3";
+                name = "Unknown - enter 1 to 3";
                 break;
         }
         System.out.println("Day: " + name);
@@ -47,9 +47,9 @@ public class SwitchRunner {
 
     /**
      * Modern switch expression (Java 14+):
-     * — arrow (->) replaces colon + break; no fall-through possible
-     * — switch is an expression: it produces a value assigned to a variable
-     * — compiler enforces exhaustiveness; a missing case is a compile error
+     * - arrow (->) replaces colon + break; no fall-through possible
+     * - switch is an expression: it produces a value assigned to a variable
+     * - compiler enforces exhaustiveness; a missing case is a compile error
      */
     static void modernSwitchExpression(int day) {
         System.out.println("\n--- Modern switch expression (day=" + day + ") ---");
@@ -57,13 +57,13 @@ public class SwitchRunner {
             case 1 -> "Monday";
             case 2 -> "Tuesday";
             case 3 -> "Wednesday";
-            default -> "Unknown — enter 1 to 3";
+            default -> "Unknown - enter 1 to 3";
         };
         System.out.println("Day: " + name);
     }
 
     /**
-     * Multiple labels on one case — supported in both styles.
+     * Multiple labels on one case - supported in both styles.
      * Here shown with the modern arrow form.
      */
     static void switchWithMultipleLabels(int day) {

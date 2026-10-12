@@ -6,7 +6,7 @@ package com.teaching.oop;
  *
  * Fixes applied from source repo:
  *   displayShape() used String.format("...%d", getArea()) where %d expects an int
- *   but getArea() returns double — throws IllegalFormatConversionException at runtime.
+ *   but getArea() returns double - throws IllegalFormatConversionException at runtime.
  *   It also used Object.class.getName() which always returns "java.lang.Object"
  *   regardless of the actual subclass. Renamed to describe() and fixed both issues.
  */
@@ -19,7 +19,7 @@ public abstract class Shape {
     }
 
     // Abstract: every concrete subclass MUST implement this.
-    // Shape itself cannot implement it — it doesn't know what shape it is.
+    // Shape itself cannot implement it - it doesn't know what shape it is.
     public abstract double getArea();
 
     public String getColour() {

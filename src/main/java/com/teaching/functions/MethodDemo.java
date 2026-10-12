@@ -4,14 +4,14 @@ package com.teaching.functions;
  * A simple class demonstrating instance fields, a constructor, and overloaded getters.
  *
  * Anti-pattern fixed from source repo (shown live as a teaching moment):
- *   The original declared 'public static String name' — a class-level field mutated
+ *   The original declared 'public static String name' - a class-level field mutated
  *   by the constructor via MethodDemo.name = name. This meant every instance shared
  *   the same name, and the last constructor call would overwrite all previous ones.
  *   Correct approach: name is an instance field (private, no static modifier).
  */
 public class MethodDemo {
 
-    private final String name;  // instance field — unique per object
+    private final String name;  // instance field - unique per object
     private final int age;
 
     public MethodDemo(String name, int age) {

@@ -7,10 +7,10 @@ import java.util.List;
  * Demonstrates for, enhanced-for, while, do-while, and loop control (break / continue / labelled break).
  *
  * Original IterationDemo.java placed all demos in a single main() and used a bare return
- * inside a nested loop to demonstrate early exit from main — a confusing teaching pattern
+ * inside a nested loop to demonstrate early exit from main - a confusing teaching pattern
  * that also silently skipped code below it. Replaced with:
- *   — named static methods for each concept (easier to navigate)
- *   — a labelled break to show structured nested-loop exit without exiting main()
+ * - named static methods for each concept (easier to navigate)
+ * - a labelled break to show structured nested-loop exit without exiting main()
  */
 public class LoopsRunner {
 

@@ -16,7 +16,7 @@ public class EnumRunner {
         System.out.println("Code   : " + current.getCode());
 
         // Switch expression (Java 14+): exhaustive, no fall-through, returns a value.
-        // The compiler will error if a case is missing — unlike traditional switch.
+        // The compiler will error if a case is missing - unlike traditional switch.
         String description = switch (current) {
             case NEW         -> "Work has just started";
             case IN_PROGRESS -> "Work is ongoing";
@@ -28,14 +28,14 @@ public class EnumRunner {
         System.out.println("\n--- Enum variable (pass-by-value) ---");
         System.out.println("Before : " + current);
         changeStatus(current);
-        System.out.println("After  : " + current);  // still NEW — the caller's variable is unchanged
+        System.out.println("After  : " + current);  // still NEW - the caller's variable is unchanged
 
         // --- Pass-by-reference: mutating a field on an object ---
         System.out.println("\n--- Object containing an enum (pass-by-reference) ---");
         Task task = new Task(Status.NEW);
         System.out.println("Before : " + task.status);
         updateTask(task);
-        System.out.println("After  : " + task.status);  // COMPLETE — the object was mutated
+        System.out.println("After  : " + task.status);  // COMPLETE - the object was mutated
     }
 
     // Enum constants are passed by value. Reassigning the local parameter

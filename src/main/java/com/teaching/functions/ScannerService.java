@@ -7,7 +7,7 @@ import java.util.Scanner;
  * Demonstrates encapsulation: the Scanner is private; callers use clean typed methods.
  *
  * Fixes applied from source repo:
- *   1. closeScanner() printed "closing scanner.." but never called scanner.close() — resource leak.
+ *   1. closeScanner() printed "closing scanner.." but never called scanner.close() - resource leak.
  *      Renamed to close() and the Scanner is now actually closed.
  *   2. The catch block for NumberFormatException was empty (silently swallowed the error).
  *      Now logs the message so the caller can see what went wrong.
@@ -45,7 +45,7 @@ public class ScannerService {
         }
     }
 
-    // Implements AutoCloseable pattern — can be used in try-with-resources
+    // Implements AutoCloseable pattern - can be used in try-with-resources
     public void close() {
         scanner.close();
     }

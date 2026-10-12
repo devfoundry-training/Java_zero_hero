@@ -12,11 +12,11 @@ import java.util.List;
  * JDBC implementation of StudentDao.
  *
  * Key patterns demonstrated:
- *   PreparedStatement  — parameterised SQL; prevents SQL injection; compiled once
- *   RETURN_GENERATED_KEYS — retrieves the auto-increment id produced by INSERT
- *   try-with-resources — Connection, PreparedStatement, ResultSet all implement
+ *   PreparedStatement - parameterised SQL; prevents SQL injection; compiled once
+ *   RETURN_GENERATED_KEYS - retrieves the auto-increment id produced by INSERT
+ *   try-with-resources - Connection, PreparedStatement, ResultSet all implement
  *                         AutoCloseable; closing them in reverse order is guaranteed
- *   mapRow()           — centralised ResultSet → Student mapping; change column
+ *   mapRow() - centralised ResultSet -> Student mapping; change column
  *                         names in ONE place if the schema evolves
  *
  * Each method opens its own connection from DbConnection.getConnection().
@@ -107,7 +107,7 @@ public class StudentDaoImpl implements StudentDao {
             ps.setString(1, student.getName());
             ps.setInt   (2, student.getAge());
             ps.setString(3, student.getGrade());
-            ps.setInt   (4, student.getId());   // WHERE clause — must be last
+            ps.setInt   (4, student.getId());   // WHERE clause - must be last
             ps.executeUpdate();
         }
     }

@@ -2,10 +2,10 @@ package com.teaching.oop;
 
 /**
  * Subclass of Vehicle. Demonstrates:
- *   — calling super() to invoke the parent constructor
- *   — adding subclass-specific fields (make, model, noOfDoors)
- *   — overriding toString()
- *   — constructor overloading within an inheritance hierarchy
+ * - calling super() to invoke the parent constructor
+ * - adding subclass-specific fields (make, model, noOfDoors)
+ * - overriding toString()
+ * - constructor overloading within an inheritance hierarchy
  */
 public class Car extends Vehicle {
 
@@ -13,7 +13,7 @@ public class Car extends Vehicle {
     private String model;
     private int noOfDoors;
 
-    // No-arg: calls Vehicle() → Vehicle(4)
+    // No-arg: calls Vehicle() -> Vehicle(4)
     public Car() {
         super();
         this.noOfDoors = 4;
@@ -34,7 +34,7 @@ public class Car extends Vehicle {
     @Override
     public void describe() {
         super.describe();       // prints "Car with 4 wheels"
-        System.out.println("  → " + this);
+        System.out.println("  -> " + this);
     }
 
     @Override

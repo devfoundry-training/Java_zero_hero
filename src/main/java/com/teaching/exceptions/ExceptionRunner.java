@@ -5,7 +5,7 @@ package com.teaching.exceptions;
  * multi-catch, custom hierarchies, try-with-resources, and rethrowing.
  *
  * Scope: exception control flow and structure only.
- * File I/O exception patterns (EAFP vs LBYL) live in com.teaching.io.IoRunner —
+ * File I/O exception patterns (EAFP vs LBYL) live in com.teaching.io.IoRunner -
  * they belong in the IO context, not here.
  */
 public class ExceptionRunner {
@@ -46,7 +46,7 @@ public class ExceptionRunner {
     static void checkedVsUnchecked() {
         System.out.println("\n=== Checked vs Unchecked ===");
 
-        // Unchecked — NullPointerException, no forced handling
+        // Unchecked - NullPointerException, no forced handling
         try {
             String s = null;
             s.length();
@@ -54,7 +54,7 @@ public class ExceptionRunner {
             System.out.println("NPE (unchecked): " + e.getClass().getSimpleName());
         }
 
-        // Checked — ShapeException; the compiler requires you to catch or declare it
+        // Checked - ShapeException; the compiler requires you to catch or declare it
         try {
             throwChecked();
         } catch (ShapeException e) {
@@ -63,18 +63,18 @@ public class ExceptionRunner {
     }
 
     static void throwChecked() throws ShapeException {
-        throw new ShapeException("Checked exception — caller must handle or declare");
+        throw new ShapeException("Checked exception - caller must handle or declare");
     }
 
     // -------------------------------------------------------------------------
-    // 3. Multi-catch (Java 7+) — one handler for unrelated exception types
+    // 3. Multi-catch (Java 7+) - one handler for unrelated exception types
     // -------------------------------------------------------------------------
 
     static void multiCatch() {
         System.out.println("\n=== Multi-catch ===");
 
-        // Object array: null entry → NullPointerException on .toString()
-        //               "bad" entry → NumberFormatException on parseInt
+        // Object array: null entry -> NullPointerException on .toString()
+        //               "bad" entry -> NumberFormatException on parseInt
         Object[] items = { "42", null, "bad" };
         for (Object item : items) {
             try {
@@ -90,7 +90,7 @@ public class ExceptionRunner {
 
     // -------------------------------------------------------------------------
     // 4. Custom exception hierarchy
-    //    ShapeException → InvalidDimensionException → InvalidSquareException
+    //    ShapeException -> InvalidDimensionException -> InvalidSquareException
     // -------------------------------------------------------------------------
 
     static void customHierarchyDemo() {
@@ -101,23 +101,23 @@ public class ExceptionRunner {
             throw new InvalidSquareException("Sides do not match: 3.0 != 4.0");
         } catch (InvalidSquareException e) {
             System.out.println("Specific catch : " + e.getClass().getSimpleName()
-                + " — " + e.getMessage());
+                + " - " + e.getMessage());
         }
 
         // Catching a parent type also catches all its subtypes
         try {
             throw new InvalidSquareException("Caught as parent");
         } catch (ShapeException e) {
-            // InvalidSquareException IS-A ShapeException — this catch works
+            // InvalidSquareException IS-A ShapeException - this catch works
             System.out.println("Parent catch   : " + e.getClass().getSimpleName()
-                + " — " + e.getMessage());
+                + " - " + e.getMessage());
         }
     }
 
     // -------------------------------------------------------------------------
     // 5. try-with-resources
     //    Any class implementing AutoCloseable can be managed here.
-    //    close() is called in reverse order of declaration — even if an exception
+    //    close() is called in reverse order of declaration - even if an exception
     //    is thrown inside the block.
     //    File-based example is in IoRunner; here we use a plain AutoCloseable.
     // -------------------------------------------------------------------------
@@ -129,7 +129,7 @@ public class ExceptionRunner {
              ManagedResource r2 = new ManagedResource("Statement")) {
             r1.use();
             r2.use();
-        }   // r2.close() then r1.close() — reverse of open order
+        }   // r2.close() then r1.close() - reverse of open order
 
         System.out.println("After block: both resources closed");
     }
@@ -159,7 +159,7 @@ public class ExceptionRunner {
     }
 
     // -------------------------------------------------------------------------
-    // Supporting class — minimal AutoCloseable for the try-with-resources demo
+    // Supporting class - minimal AutoCloseable for the try-with-resources demo
     // -------------------------------------------------------------------------
 
     static class ManagedResource implements AutoCloseable {

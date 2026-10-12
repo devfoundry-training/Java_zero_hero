@@ -1,8 +1,8 @@
 package com.teaching.oop;
 
 /**
- * Concrete subclass of Shape. Provides getArea() using πr².
- * New class — not in the source repo. Added to give OopRunner two concrete Shape types
+ * Concrete subclass of Shape. Provides getArea() using pi * r^2.
+ * New class - not in the source repo. Added to give OopRunner two concrete Shape types
  * for a meaningful polymorphism demo.
  */
 public class Circle extends Shape {

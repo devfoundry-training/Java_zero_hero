@@ -23,14 +23,14 @@ import java.util.TreeSet;
  * Run:
  *   mvn exec:java -Dexec.mainClass="com.teaching.collections.CollectionsRunner"
  *
- * Key concept — collections store references (not values) for objects:
- *   List<int> is illegal; use List<Integer> (autoboxing handles int ↔ Integer).
+ * Key concept - collections store references (not values) for objects:
+ *   List<int> is illegal; use List<Integer> (autoboxing handles int <-> Integer).
  *
  * Interface vs implementation:
  *   Declare variables using the interface type (List, Set, Map) so you can
  *   swap the backing implementation without changing the rest of the code.
- *   List<String> names = new ArrayList<>();   ← good
- *   ArrayList<String> names = new ArrayList<>();  ← avoid (locks you in)
+ *   List<String> names = new ArrayList<>();   <- good
+ *   ArrayList<String> names = new ArrayList<>();  <- avoid (locks you in)
  */
 public class CollectionsRunner {
 
@@ -43,7 +43,7 @@ public class CollectionsRunner {
     }
 
     // -------------------------------------------------------------------------
-    // 1. List — ordered, allows duplicates, index-accessible
+    // 1. List - ordered, allows duplicates, index-accessible
     // -------------------------------------------------------------------------
 
     static void listDemo() {
@@ -77,7 +77,7 @@ public class CollectionsRunner {
         }
         System.out.println();
 
-        // Iteration with Iterator — safe for removing during traversal
+        // Iteration with Iterator - safe for removing during traversal
         Iterator<Integer> it = numbers.iterator();
         while (it.hasNext()) {
             int n = it.next();
@@ -85,18 +85,18 @@ public class CollectionsRunner {
         }
         System.out.println("  After removing multiples of 20 via Iterator: " + numbers);
 
-        // List.of() — immutable (factory method, Java 9+)
+        // List.of() - immutable (factory method, Java 9+)
         List<String> immutable = List.of("X", "Y", "Z");
         System.out.println("  List.of() (immutable): " + immutable);
         try {
             immutable.add("W");   // UnsupportedOperationException
         } catch (UnsupportedOperationException e) {
-            System.out.println("  add() on List.of() → UnsupportedOperationException (immutable)");
+            System.out.println("  add() on List.of() -> UnsupportedOperationException (immutable)");
         }
     }
 
     // -------------------------------------------------------------------------
-    // 2. Set — unordered (usually), no duplicates
+    // 2. Set - unordered (usually), no duplicates
     // -------------------------------------------------------------------------
 
     static void setDemo() {
@@ -120,12 +120,12 @@ public class CollectionsRunner {
         Set<Integer> b = new HashSet<>(List.of(3, 4, 5, 6));
 
         Set<Integer> union = new HashSet<>(a);
-        union.addAll(b);                  // A ∪ B
-        System.out.println("  Union        " + a + " ∪ " + b + " = " + new TreeSet<>(union));
+        union.addAll(b);                  // A union B
+        System.out.println("  Union        " + a + " union " + b + " = " + new TreeSet<>(union));
 
         Set<Integer> intersection = new HashSet<>(a);
-        intersection.retainAll(b);        // A ∩ B
-        System.out.println("  Intersection " + a + " ∩ " + b + " = " + intersection);
+        intersection.retainAll(b);        // A intersect B
+        System.out.println("  Intersection " + a + " intersect " + b + " = " + intersection);
 
         Set<Integer> difference = new HashSet<>(a);
         difference.removeAll(b);          // A \ B
@@ -133,7 +133,7 @@ public class CollectionsRunner {
     }
 
     // -------------------------------------------------------------------------
-    // 3. Map — key → value pairs; keys unique, values may repeat
+    // 3. Map - key -> value pairs; keys unique, values may repeat
     // -------------------------------------------------------------------------
 
     static void mapDemo() {
@@ -144,7 +144,7 @@ public class CollectionsRunner {
         scores.put("Alice", 90);
         scores.put("Bob",   75);
         scores.put("Carol", 88);
-        scores.put("Alice", 95);   // put on existing key → replaces the old value
+        scores.put("Alice", 95);   // put on existing key -> replaces the old value
         System.out.println("HashMap: " + scores);
 
         // Retrieval
@@ -153,15 +153,15 @@ public class CollectionsRunner {
         System.out.println("  getOrDefault(Unknown, -1) : " + scores.getOrDefault("Unknown", -1));
         System.out.println("  containsKey(Bob)          : " + scores.containsKey("Bob"));
 
-        // putIfAbsent — only inserts if key is absent (useful for initialising counts)
-        scores.putIfAbsent("Dave", 80);   // Dave is absent → inserted
-        scores.putIfAbsent("Alice", 0);   // Alice already exists → no change
+        // putIfAbsent - only inserts if key is absent (useful for initialising counts)
+        scores.putIfAbsent("Dave", 80);   // Dave is absent -> inserted
+        scores.putIfAbsent("Alice", 0);   // Alice already exists -> no change
         System.out.println("  after putIfAbsent(Dave,80) + putIfAbsent(Alice,0): " + scores);
 
         // Iterate over entries (entrySet)
         System.out.println("  entrySet iteration (sorted by key for readability):");
         new TreeMap<>(scores).forEach(
-            (name, score) -> System.out.println("    " + name + " → " + score)
+            (name, score) -> System.out.println("    " + name + " -> " + score)
         );
 
         // LinkedHashMap preserves insertion order
@@ -171,19 +171,19 @@ public class CollectionsRunner {
         ordered.put("third",  3);
         System.out.println("  LinkedHashMap (insertion order): " + ordered);
 
-        // TreeMap — always sorted by key
+        // TreeMap - always sorted by key
         Map<String, Integer> sorted = new TreeMap<>(scores);
         System.out.println("  TreeMap (sorted by key): " + sorted);
     }
 
     // -------------------------------------------------------------------------
-    // 4. Queue and Deque — FIFO and LIFO structures
+    // 4. Queue and Deque - FIFO and LIFO structures
     // -------------------------------------------------------------------------
 
     static void queueAndDequeDemo() {
         System.out.println("\n=== Queue and Deque Demo ===");
 
-        // ArrayDeque as a Queue (FIFO — First In, First Out)
+        // ArrayDeque as a Queue (FIFO - First In, First Out)
         // Prefer offer/poll/peek over add/remove/element for null-safe behaviour:
         //   offer() returns false on failure (add() throws)
         //   poll()  returns null on empty  (remove() throws)
@@ -194,11 +194,11 @@ public class CollectionsRunner {
         queue.offer("third");
         System.out.println("Queue (FIFO): " + queue);
         System.out.println("  peek()  (head, not removed): " + queue.peek());
-        System.out.println("  poll()  → " + queue.poll() + "  queue now: " + queue);
-        System.out.println("  poll()  → " + queue.poll() + "  queue now: " + queue);
+        System.out.println("  poll()  -> " + queue.poll() + "  queue now: " + queue);
+        System.out.println("  poll()  -> " + queue.poll() + "  queue now: " + queue);
 
-        // ArrayDeque as a Stack (LIFO — Last In, First Out)
-        // java.util.Stack is a legacy class (extends Vector — synchronized, slower).
+        // ArrayDeque as a Stack (LIFO - Last In, First Out)
+        // java.util.Stack is a legacy class (extends Vector - synchronized, slower).
         // Use ArrayDeque instead.
         Deque<String> stack = new ArrayDeque<>();
         stack.push("bottom");
@@ -206,12 +206,12 @@ public class CollectionsRunner {
         stack.push("top");
         System.out.println("\nStack (LIFO) using ArrayDeque: " + stack);
         System.out.println("  peek() (top, not removed): " + stack.peek());
-        System.out.println("  pop()  → " + stack.pop() + "  stack now: " + stack);
-        System.out.println("  pop()  → " + stack.pop() + "  stack now: " + stack);
+        System.out.println("  pop()  -> " + stack.pop() + "  stack now: " + stack);
+        System.out.println("  pop()  -> " + stack.pop() + "  stack now: " + stack);
     }
 
     // -------------------------------------------------------------------------
-    // 5. Collections utility class — algorithms on collections
+    // 5. Collections utility class - algorithms on collections
     // -------------------------------------------------------------------------
 
     static void collectionsUtilityDemo() {
@@ -234,14 +234,14 @@ public class CollectionsRunner {
         int idx = Collections.binarySearch(nums, 5);   // list must be sorted first
         System.out.println("binarySearch(5)       : index " + idx);
 
-        // Unmodifiable wrapper — defensive copy pattern:
+        // Unmodifiable wrapper - defensive copy pattern:
         // expose a read-only view of an internal mutable list
         List<Integer> readOnly = Collections.unmodifiableList(nums);
         System.out.println("unmodifiableList view : " + readOnly);
         try {
             readOnly.add(99);   // UnsupportedOperationException
         } catch (UnsupportedOperationException e) {
-            System.out.println("  add() on unmodifiableList → UnsupportedOperationException");
+            System.out.println("  add() on unmodifiableList -> UnsupportedOperationException");
         }
     }
 }

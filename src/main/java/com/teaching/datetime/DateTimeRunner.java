@@ -18,9 +18,9 @@ import java.time.temporal.ChronoUnit;
  *   LocalDate, LocalDateTime, ZonedDateTime, DateTimeFormatter, Period, Duration, Instant.
  *
  * Key rule: all java.time objects are IMMUTABLE. Arithmetic methods (plusDays, minusMonths, etc.)
- * return a new object — the original is unchanged. This is the same principle as String.
+ * return a new object - the original is unchanged. This is the same principle as String.
  *
- * No external dependencies — java.time is part of the JDK.
+ * No external dependencies - java.time is part of the JDK.
  */
 public class DateTimeRunner {
 
@@ -34,7 +34,7 @@ public class DateTimeRunner {
     }
 
     // -------------------------------------------------------------------------
-    // 1. LocalDate — a date with no time and no timezone (year-month-day only)
+    // 1. LocalDate - a date with no time and no timezone (year-month-day only)
     // -------------------------------------------------------------------------
 
     static void localDateDemo() {
@@ -48,7 +48,7 @@ public class DateTimeRunner {
         System.out.println("birthday : " + birthday);
         System.out.println("xmas     : " + xmas);
 
-        // Arithmetic — returns a NEW date; original is unchanged
+        // Arithmetic - returns a NEW date; original is unchanged
         LocalDate nextWeek   = today.plusWeeks(1);
         LocalDate lastMonth  = today.minusMonths(1);
         LocalDate inTwoYears = today.plusYears(2);
@@ -69,7 +69,7 @@ public class DateTimeRunner {
     }
 
     // -------------------------------------------------------------------------
-    // 2. LocalDateTime — date + time, no timezone
+    // 2. LocalDateTime - date + time, no timezone
     //    Use when you need both date and time but timezone is irrelevant
     //    (e.g., a meeting time stored without regard for the attendee's location).
     // -------------------------------------------------------------------------
@@ -93,7 +93,7 @@ public class DateTimeRunner {
         LocalDateTime combined = LocalDateTime.of(date, time);
         System.out.println("combined  : " + combined);
 
-        // truncatedTo: zero out sub-units — useful for grouping by hour, day, etc.
+        // truncatedTo: zero out sub-units - useful for grouping by hour, day, etc.
         LocalDateTime hourPrecision = now.truncatedTo(ChronoUnit.HOURS);
         System.out.println("truncated to hour : " + hourPrecision);
 
@@ -102,7 +102,7 @@ public class DateTimeRunner {
     }
 
     // -------------------------------------------------------------------------
-    // 3. ZonedDateTime — date + time + timezone offset
+    // 3. ZonedDateTime - date + time + timezone offset
     //    Use whenever a precise moment in time must be unambiguous globally.
     // -------------------------------------------------------------------------
 
@@ -123,17 +123,17 @@ public class DateTimeRunner {
         ZonedDateTime tokyoNow = utcNow.withZoneSameInstant(tokyo);
         System.out.println("Tokyo  : " + tokyoNow);
 
-        // withZoneSameLocal: keeps the clock reading, changes the zone label —
+        // withZoneSameLocal: keeps the clock reading, changes the zone label -
         // this is a DIFFERENT point in time. Use with care.
         ZonedDateTime sameClockTokyo = utcNow.withZoneSameLocal(tokyo);
         System.out.println("Same clock in Tokyo (different instant): " + sameClockTokyo);
 
-        // ZoneId.getAvailableZoneIds() returns ~600 zone strings — useful to know it exists
+        // ZoneId.getAvailableZoneIds() returns ~600 zone strings - useful to know it exists
         System.out.println("Total available zones: " + ZoneId.getAvailableZoneIds().size());
     }
 
     // -------------------------------------------------------------------------
-    // 4. DateTimeFormatter — convert between dates and strings
+    // 4. DateTimeFormatter - convert between dates and strings
     // -------------------------------------------------------------------------
 
     static void formatterDemo() {
@@ -146,21 +146,21 @@ public class DateTimeRunner {
         DateTimeFormatter ukFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         DateTimeFormatter verbose  = DateTimeFormatter.ofPattern("EEEE, d MMMM yyyy"); // "Monday, 3 March 2025"
 
-        // Format: date → String
+        // Format: date -> String
         System.out.println("uk format : " + today.format(ukFormat));
         System.out.println("verbose   : " + today.format(verbose));
 
-        // Built-in ISO formatters — no pattern string needed
+        // Built-in ISO formatters - no pattern string needed
         System.out.println("ISO date  : " + today.format(DateTimeFormatter.ISO_LOCAL_DATE));
 
         LocalDateTime now = LocalDateTime.now();
         System.out.println("ISO dt    : " + now.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
 
-        // Parse: String → date
+        // Parse: String -> date
         LocalDate parsed = LocalDate.parse("25/12/2025", ukFormat);
         System.out.println("parsed    : " + parsed);
 
-        // DateTimeParseException — checked at runtime, not compile time
+        // DateTimeParseException - checked at runtime, not compile time
         try {
             LocalDate.parse("not-a-date", ukFormat);
         } catch (DateTimeParseException e) {
@@ -210,9 +210,9 @@ public class DateTimeRunner {
     }
 
     // -------------------------------------------------------------------------
-    // 6. Instant — a point on the UTC timeline (epoch-based)
+    // 6. Instant - a point on the UTC timeline (epoch-based)
     //    Use for logging, storing timestamps in databases, or measuring elapsed time.
-    //    Not human-readable on its own — convert via ZonedDateTime for display.
+    //    Not human-readable on its own - convert via ZonedDateTime for display.
     // -------------------------------------------------------------------------
 
     static void instantDemo() {
@@ -230,7 +230,7 @@ public class DateTimeRunner {
         System.out.println("readable   : " + readable.format(
             DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm:ss z")));
 
-        // Measuring elapsed time — use Instant, not System.currentTimeMillis(), in new code
+        // Measuring elapsed time - use Instant, not System.currentTimeMillis(), in new code
         Instant before = Instant.now();
         long    sum    = 0;
         for (int i = 0; i < 1_000_000; i++) sum += i;

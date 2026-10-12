@@ -19,7 +19,7 @@ public class ScannerRunner {
 
         System.out.print("Enter your height in metres (e.g. 1.75): ");
         try {
-            // Always read a full line, then parse — avoids leftover newline issues
+            // Always read a full line, then parse - avoids leftover newline issues
             double height = Double.parseDouble(scanner.nextLine());
             System.out.printf("Height: %.2f m%n", height);
         } catch (NumberFormatException e) {

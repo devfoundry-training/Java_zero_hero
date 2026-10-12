@@ -12,19 +12,19 @@ import java.sql.Statement;
  * Utility class that centralises H2 connection details and schema initialisation.
  *
  * H2 in-memory URL breakdown:
- *   jdbc:h2:mem:teaching   — in-memory database named "teaching"
+ *   jdbc:h2:mem:teaching - in-memory database named "teaching"
  *                            All connections to the same name share the same data
  *                            within a single JVM (important for multi-connection demos)
- *   DB_CLOSE_DELAY=-1      — keep the database alive for the full JVM lifetime;
+ *   DB_CLOSE_DELAY=-1 - keep the database alive for the full JVM lifetime;
  *                            without this, H2 drops the in-memory DB the moment
  *                            the last connection closes
  *
  * To switch to MySQL: replace URL, USER, PASSWORD and ensure mysql-connector-j
- * is on the classpath (it already is — see pom.xml). DAO code is unchanged.
+ * is on the classpath (it already is - see pom.xml). DAO code is unchanged.
  *
  * Production note: in a real application you would inject a javax.sql.DataSource
  * (e.g. HikariCP connection pool) rather than calling DriverManager directly.
- * DriverManager is fine for learning — it creates a new connection on every call.
+ * DriverManager is fine for learning - it creates a new connection on every call.
  */
 public final class DbConnection {
 
@@ -32,11 +32,11 @@ public final class DbConnection {
     private static final String USER     = "sa";
     private static final String PASSWORD = "";
 
-    // Utility class — prevent instantiation
+    // Utility class - prevent instantiation
     private DbConnection() {}
 
     /**
-     * Returns a new JDBC connection. The caller is responsible for closing it —
+     * Returns a new JDBC connection. The caller is responsible for closing it -
      * always use try-with-resources: try (Connection conn = DbConnection.getConnection())
      */
     public static Connection getConnection() throws SQLException {
@@ -47,7 +47,7 @@ public final class DbConnection {
      * Loads src/main/resources/databases/schema.sql from the classpath and
      * executes it against the in-memory database.
      *
-     * Must be called once before any DAO operations. Safe to call again —
+     * Must be called once before any DAO operations. Safe to call again -
      * the DDL uses CREATE TABLE IF NOT EXISTS.
      *
      * @throws IOException  if schema.sql cannot be read from the classpath

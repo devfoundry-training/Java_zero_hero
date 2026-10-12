@@ -26,15 +26,24 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <!-- Dependency versions — change once, applies everywhere -->
+        <!-- Dependency versions: change once, applies everywhere -->
         <junit.version>5.11.4</junit.version>
+        <junit.platform.version>1.11.4</junit.platform.version>
         <mysql.version>9.1.0</mysql.version>
         <h2.version>2.3.232</h2.version>
+        <sqlite.version>3.50.3.0</sqlite.version>
 
         <!-- Plugin versions -->
         <compiler.plugin.version>3.13.0</compiler.plugin.version>
         <surefire.plugin.version>3.5.2</surefire.plugin.version>
         <exec.plugin.version>3.3.0</exec.plugin.version>
+
+        <!--
+            The task folder that exec:java@task and exec:java@tests run.
+            Set it on the command line, for example:
+            mvn -q compile exec:java@task -Dtask=05_classes/starter
+        -->
+        <task>01_bookshelf/solution</task>
     </properties>
 
     <!-- =========================================================
@@ -42,7 +51,7 @@
     ========================================================= -->
     <dependencies>
 
-        <!-- JUnit 5 — test scope only -->
+        <!-- JUnit 5: test scope only -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
@@ -51,7 +60,18 @@
         </dependency>
 
         <!--
-            H2 — embedded, pure-Java, zero-setup database.
+            JUnit console launcher: runs the task 11 tests and prints the name of
+            every test it runs (the Maven test report only lists failures).
+        -->
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-console</artifactId>
+            <version>${junit.platform.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!--
+            H2: embedded, pure-Java, zero-setup database.
             Used for all databases-domain demos (in-memory mode, no server needed).
             H2 syntax is largely MySQL-compatible; swapping the JDBC URL and driver
             is all that is required to point the same DAO code at a real MySQL instance.
@@ -63,7 +83,7 @@
         </dependency>
 
         <!--
-            MySQL JDBC driver — kept here as reference for students who want to
+            MySQL JDBC driver: kept here as reference for students who want to
             connect to a live MySQL 8+ server after completing the H2 demos.
             Change DbConnection.URL + credentials; the DAO code is unchanged.
             Requires MySQL 8+ running locally. Credentials go in
@@ -75,6 +95,16 @@
             <version>${mysql.version}</version>
         </dependency>
 
+        <!--
+            SQLite JDBC driver: task 10 (tasks/10_sqlite) keeps the library in a
+            SQLite file. The driver carries SQLite itself, so nothing else is installed.
+        -->
+        <dependency>
+            <groupId>org.xerial</groupId>
+            <artifactId>sqlite-jdbc</artifactId>
+            <version>${sqlite.version}</version>
+        </dependency>
+
     </dependencies>
 
     <!-- =========================================================
@@ -83,6 +113,18 @@
     <build>
         <plugins>
 
+            <!--
+                The default executions compile src/main/java and src/test/java.
+
+                The extra executions compile the practical tasks. Every task folder
+                (tasks/NN_name/starter and tasks/NN_name/solution) is a small program
+                of its own with a class called Main, so each one is compiled on its
+                own into target/tasks/NN_name/starter or .../solution, during the
+                compile phase. They use the testCompile goal so the task 11 tests can
+                see JUnit, and so the jar this project builds is left alone.
+                A task that does not compile fails the whole build, exactly like a
+                broken file under src.
+            -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -90,11 +132,250 @@
                 <configuration>
                     <release>${java.version}</release>
                 </configuration>
+                <executions>
+                    <execution>
+                        <id>task-01_bookshelf-starter</id>
+                        <phase>compile</phase>
+                        <goals><goal>testCompile</goal></goals>
+                        <configuration>
+                            <compileSourceRoots><root>${project.basedir}/tasks/01_bookshelf/starter</root></compileSourceRoots>
+                            <outputDirectory>${project.build.directory}/tasks/01_bookshelf/starter</outputDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>task-01_bookshelf-solution</id>
+                        <phase>compile</phase>
+                        <goals><goal>testCompile</goal></goals>
+                        <configuration>
+                            <compileSourceRoots><root>${project.basedir}/tasks/01_bookshelf/solution</root></compileSourceRoots>
+                            <outputDirectory>${project.build.directory}/tasks/01_bookshelf/solution</outputDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>task-02_search_and_report-starter</id>
+                        <phase>compile</phase>
+                        <goals><goal>testCompile</goal></goals>
+                        <configuration>
+                            <compileSourceRoots><root>${project.basedir}/tasks/02_search_and_report/starter</root></compileSourceRoots>
+                            <outputDirectory>${project.build.directory}/tasks/02_search_and_report/starter</outputDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>task-02_search_and_report-solution</id>
+                        <phase>compile</phase>
+                        <goals><goal>testCompile</goal></goals>
+                        <configuration>
+                            <compileSourceRoots><root>${project.basedir}/tasks/02_search_and_report/solution</root></compileSourceRoots>
+                            <outputDirectory>${project.build.directory}/tasks/02_search_and_report/solution</outputDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>task-03_functions-starter</id>
+                        <phase>compile</phase>
+                        <goals><goal>testCompile</goal></goals>
+                        <configuration>
+                            <compileSourceRoots><root>${project.basedir}/tasks/03_functions/starter</root></compileSourceRoots>
+                            <outputDirectory>${project.build.directory}/tasks/03_functions/starter</outputDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>task-03_functions-solution</id>
+                        <phase>compile</phase>
+                        <goals><goal>testCompile</goal></goals>
+                        <configuration>
+                            <compileSourceRoots><root>${project.basedir}/tasks/03_functions/solution</root></compileSourceRoots>
+                            <outputDirectory>${project.build.directory}/tasks/03_functions/solution</outputDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>task-04_dynamic_catalogue-starter</id>
+                        <phase>compile</phase>
+                        <goals><goal>testCompile</goal></goals>
+                        <configuration>
+                            <compileSourceRoots><root>${project.basedir}/tasks/04_dynamic_catalogue/starter</root></compileSourceRoots>
+                            <outputDirectory>${project.build.directory}/tasks/04_dynamic_catalogue/starter</outputDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>task-04_dynamic_catalogue-solution</id>
+                        <phase>compile</phase>
+                        <goals><goal>testCompile</goal></goals>
+                        <configuration>
+                            <compileSourceRoots><root>${project.basedir}/tasks/04_dynamic_catalogue/solution</root></compileSourceRoots>
+                            <outputDirectory>${project.build.directory}/tasks/04_dynamic_catalogue/solution</outputDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>task-05_classes-starter</id>
+                        <phase>compile</phase>
+                        <goals><goal>testCompile</goal></goals>
+                        <configuration>
+                            <compileSourceRoots><root>${project.basedir}/tasks/05_classes/starter</root></compileSourceRoots>
+                            <outputDirectory>${project.build.directory}/tasks/05_classes/starter</outputDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>task-05_classes-solution</id>
+                        <phase>compile</phase>
+                        <goals><goal>testCompile</goal></goals>
+                        <configuration>
+                            <compileSourceRoots><root>${project.basedir}/tasks/05_classes/solution</root></compileSourceRoots>
+                            <outputDirectory>${project.build.directory}/tasks/05_classes/solution</outputDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>task-06_book_types-starter</id>
+                        <phase>compile</phase>
+                        <goals><goal>testCompile</goal></goals>
+                        <configuration>
+                            <compileSourceRoots><root>${project.basedir}/tasks/06_book_types/starter</root></compileSourceRoots>
+                            <outputDirectory>${project.build.directory}/tasks/06_book_types/starter</outputDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>task-06_book_types-solution</id>
+                        <phase>compile</phase>
+                        <goals><goal>testCompile</goal></goals>
+                        <configuration>
+                            <compileSourceRoots><root>${project.basedir}/tasks/06_book_types/solution</root></compileSourceRoots>
+                            <outputDirectory>${project.build.directory}/tasks/06_book_types/solution</outputDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>task-07_errors-starter</id>
+                        <phase>compile</phase>
+                        <goals><goal>testCompile</goal></goals>
+                        <configuration>
+                            <compileSourceRoots><root>${project.basedir}/tasks/07_errors/starter</root></compileSourceRoots>
+                            <outputDirectory>${project.build.directory}/tasks/07_errors/starter</outputDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>task-07_errors-solution</id>
+                        <phase>compile</phase>
+                        <goals><goal>testCompile</goal></goals>
+                        <configuration>
+                            <compileSourceRoots><root>${project.basedir}/tasks/07_errors/solution</root></compileSourceRoots>
+                            <outputDirectory>${project.build.directory}/tasks/07_errors/solution</outputDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>task-08_persistence-starter</id>
+                        <phase>compile</phase>
+                        <goals><goal>testCompile</goal></goals>
+                        <configuration>
+                            <compileSourceRoots><root>${project.basedir}/tasks/08_persistence/starter</root></compileSourceRoots>
+                            <outputDirectory>${project.build.directory}/tasks/08_persistence/starter</outputDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>task-08_persistence-solution</id>
+                        <phase>compile</phase>
+                        <goals><goal>testCompile</goal></goals>
+                        <configuration>
+                            <compileSourceRoots><root>${project.basedir}/tasks/08_persistence/solution</root></compileSourceRoots>
+                            <outputDirectory>${project.build.directory}/tasks/08_persistence/solution</outputDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>task-09_due_dates-starter</id>
+                        <phase>compile</phase>
+                        <goals><goal>testCompile</goal></goals>
+                        <configuration>
+                            <compileSourceRoots><root>${project.basedir}/tasks/09_due_dates/starter</root></compileSourceRoots>
+                            <outputDirectory>${project.build.directory}/tasks/09_due_dates/starter</outputDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>task-09_due_dates-solution</id>
+                        <phase>compile</phase>
+                        <goals><goal>testCompile</goal></goals>
+                        <configuration>
+                            <compileSourceRoots><root>${project.basedir}/tasks/09_due_dates/solution</root></compileSourceRoots>
+                            <outputDirectory>${project.build.directory}/tasks/09_due_dates/solution</outputDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>task-10_sqlite-starter</id>
+                        <phase>compile</phase>
+                        <goals><goal>testCompile</goal></goals>
+                        <configuration>
+                            <compileSourceRoots><root>${project.basedir}/tasks/10_sqlite/starter</root></compileSourceRoots>
+                            <outputDirectory>${project.build.directory}/tasks/10_sqlite/starter</outputDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>task-10_sqlite-solution</id>
+                        <phase>compile</phase>
+                        <goals><goal>testCompile</goal></goals>
+                        <configuration>
+                            <compileSourceRoots><root>${project.basedir}/tasks/10_sqlite/solution</root></compileSourceRoots>
+                            <outputDirectory>${project.build.directory}/tasks/10_sqlite/solution</outputDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>task-11_testing-starter</id>
+                        <phase>compile</phase>
+                        <goals><goal>testCompile</goal></goals>
+                        <configuration>
+                            <compileSourceRoots><root>${project.basedir}/tasks/11_testing/starter</root></compileSourceRoots>
+                            <outputDirectory>${project.build.directory}/tasks/11_testing/starter</outputDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>task-11_testing-solution</id>
+                        <phase>compile</phase>
+                        <goals><goal>testCompile</goal></goals>
+                        <configuration>
+                            <compileSourceRoots><root>${project.basedir}/tasks/11_testing/solution</root></compileSourceRoots>
+                            <outputDirectory>${project.build.directory}/tasks/11_testing/solution</outputDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>task-12_library_api-starter</id>
+                        <phase>compile</phase>
+                        <goals><goal>testCompile</goal></goals>
+                        <configuration>
+                            <compileSourceRoots><root>${project.basedir}/tasks/12_library_api/starter</root></compileSourceRoots>
+                            <outputDirectory>${project.build.directory}/tasks/12_library_api/starter</outputDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>task-12_library_api-solution</id>
+                        <phase>compile</phase>
+                        <goals><goal>testCompile</goal></goals>
+                        <configuration>
+                            <compileSourceRoots><root>${project.basedir}/tasks/12_library_api/solution</root></compileSourceRoots>
+                            <outputDirectory>${project.build.directory}/tasks/12_library_api/solution</outputDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>task-B_busy_library-starter</id>
+                        <phase>compile</phase>
+                        <goals><goal>testCompile</goal></goals>
+                        <configuration>
+                            <compileSourceRoots><root>${project.basedir}/tasks/B_busy_library/starter</root></compileSourceRoots>
+                            <outputDirectory>${project.build.directory}/tasks/B_busy_library/starter</outputDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>task-B_busy_library-solution</id>
+                        <phase>compile</phase>
+                        <goals><goal>testCompile</goal></goals>
+                        <configuration>
+                            <compileSourceRoots><root>${project.basedir}/tasks/B_busy_library/solution</root></compileSourceRoots>
+                            <outputDirectory>${project.build.directory}/tasks/B_busy_library/solution</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
 
             <!--
                 Surefire 3.x detects JUnit 5 automatically.
                 useModulePath=false: avoids module-info.java complexity.
+                The second execution also runs the task 11 solution tests, so
+                mvn test proves them. The task 11 starter tests fail on purpose
+                until they are written, so they are compiled but not run here.
             -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -107,19 +388,111 @@
                         <include>**/*Tests.java</include>
                     </includes>
                 </configuration>
+                <executions>
+                    <execution>
+                        <id>task-11-solution-tests</id>
+                        <goals><goal>test</goal></goals>
+                        <configuration>
+                            <testClassesDirectory>${project.build.directory}/tasks/11_testing/solution</testClassesDirectory>
+                            <reportsDirectory>${project.build.directory}/surefire-reports/task-11</reportsDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
 
             <!--
                 Run any demo from the command line:
                 mvn exec:java -Dexec.mainClass="com.teaching.basics.DatatypeRunner"
+
+                Run a practical task (see tasks/README.md):
+                mvn -q compile exec:java@task -Dtask=01_bookshelf/solution
+                mvn -q compile exec:java@task -Dtask=08_persistence/solution -Dexec.args="tasks/data"
+
+                Run the task 11 tests with every test name listed:
+                mvn -q compile exec:java@tests -Dtask=11_testing/solution
+
+                addOutputToClasspath=false: a task runs from target/tasks/... only,
+                never from target/classes. IntelliJ IDEA compiles every task folder
+                into target/classes when you build in the IDE, so an old Main or Book
+                class left there would otherwise run instead of the task you asked for.
             -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>${exec.plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>task</id>
+                        <configuration>
+                            <mainClass>Main</mainClass>
+                            <addOutputToClasspath>false</addOutputToClasspath>
+                            <additionalClasspathElements>
+                                <additionalClasspathElement>${project.build.directory}/tasks/${task}</additionalClasspathElement>
+                            </additionalClasspathElements>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>tests</id>
+                        <configuration>
+                            <mainClass>org.junit.platform.console.ConsoleLauncher</mainClass>
+                            <classpathScope>test</classpathScope>
+                            <addOutputToClasspath>false</addOutputToClasspath>
+                            <arguments>
+                                <argument>execute</argument>
+                                <argument>--disable-banner</argument>
+                                <argument>--details=tree</argument>
+                                <argument>--fail-if-no-tests</argument>
+                                <argument>--scan-classpath=${project.build.directory}/tasks/${task}</argument>
+                            </arguments>
+                            <additionalClasspathElements>
+                                <additionalClasspathElement>${project.build.directory}/tasks/${task}</additionalClasspathElement>
+                            </additionalClasspathElements>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
 
         </plugins>
     </build>
+
+    <!-- =========================================================
+         Profiles
+    ========================================================= -->
+    <profiles>
+
+        <!--
+            IntelliJ IDEA only: never active in a command-line build.
+            IntelliJ turns each task folder into a module of its own (from the
+            compiler executions above), so every starter and solution gets code
+            completion with no setup. Those modules only see compile-scope
+            dependencies, though, so the task 11 tests could not find JUnit.
+            This profile switches itself on during IntelliJ's Maven import
+            (IntelliJ sets the idea.maven.embedder.version property there) and
+            makes JUnit visible to the task modules in the IDE.
+        -->
+        <profile>
+            <id>intellij-task-modules</id>
+            <activation>
+                <property>
+                    <name>idea.maven.embedder.version</name>
+                </property>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>org.junit.jupiter</groupId>
+                    <artifactId>junit-jupiter</artifactId>
+                    <version>${junit.version}</version>
+                    <scope>provided</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.junit.platform</groupId>
+                    <artifactId>junit-platform-console</artifactId>
+                    <version>${junit.platform.version}</version>
+                    <scope>provided</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+
+    </profiles>
 
 </project>

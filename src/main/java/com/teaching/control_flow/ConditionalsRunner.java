@@ -11,7 +11,7 @@ public class ConditionalsRunner {
         evenOddCounter();
     }
 
-    // Original method was named "method()" — renamed to describe its purpose.
+    // Original method was named "method()" - renamed to describe its purpose.
     static void gradeDemo() {
         System.out.println("=== Grade Calculator ===");
         int score = 85;

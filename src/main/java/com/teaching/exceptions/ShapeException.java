@@ -2,7 +2,7 @@ package com.teaching.exceptions;
 
 /**
  * Root of the shape exception hierarchy.
- * Extends Exception (checked) — callers must handle or declare it.
+ * Extends Exception (checked) - callers must handle or declare it.
  * Two constructors: message-only, and message + cause (wrapping another exception).
  *
  * Full exception demos (try-catch, LBYL vs EAFP, try-with-resources) live in ExceptionRunner.
