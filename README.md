@@ -1,5 +1,7 @@
 # Java Zero to Hero
 
+[![Tasks](https://github.com/devfoundry-training/Java_zero_hero/actions/workflows/tasks.yml/badge.svg)](https://github.com/devfoundry-training/Java_zero_hero/actions/workflows/tasks.yml)
+
 A structured, single-project teaching repository covering Java 21 from the ground up: no frameworks, no fluff. Domain-based packages, one runnable demo per domain, all fixes and anti-patterns documented in comments.
 
 ---
